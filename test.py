@@ -25,19 +25,96 @@
 # start = time.time()
 # result2=has_duplicates_v1(arr)
 # time2 = time.time() - start
-# print(f"Cách 2: {time2:.4f} giây")
-def two_sum_v1(nums, target):
-    n=len(nums)
-    for i in range(n):
-        for j in range(i+1,n):
-            if nums[i]+nums[j]==target:
-                return [i,j]
-    return []
-def two_sum_v2(nums, target):
-    seen={}
-    for i, num in enumerate(nums):
-        complement=target-num
-        if complement in seen:
-            return [seen[complement],i]
-        seen[num]=i
-    return []
+# # print(f"Cách 2: {time2:.4f} giây")
+# def two_sum_v1(nums, target):
+#     n=len(nums)
+#     for i in range(n):
+#         for j in range(i+1,n):
+#             if nums[i]+nums[j]==target:
+#                 return [i,j]
+#     return []
+# def two_sum_v2(nums, target):
+#     seen={}
+#     for i, num in enumerate(nums):
+#         complement=target-num
+#         if complement in seen:
+#             return [seen[complement],i]
+#         seen[num]=i
+#     return []
+
+
+
+# def factorial(n):
+#     if n == 0 or n == 1:
+#         return 1
+#     else:
+#         return n * factorial(n - 1)
+    
+# def sum_to_n(n):
+#     if n == 1:
+#         return 1
+#     return n + sum_to_n(n - 1)    
+# ------------------------------------------------------------------------
+# from matplotlib.pylab import partition
+
+
+# def merge_sort(arr):
+#     if len(arr) <= 1:
+#         return arr
+#     mid = len(arr) // 2
+#     left_half = merge_sort(arr[:mid])
+#     right_half = merge_sort(arr[mid:])
+#     return merge(left_half, right_half)
+
+# def merge(left, right):
+#     result = []
+#     i = j = 0
+#     while i < len(left) and j < len(right):
+#         if left[i] < right[j]:
+#             result.append(left[i])
+#             i += 1
+#         else:
+#             result.append(right[j])
+#             j += 1
+#     result.extend(left[i:])
+#     result.extend(right[j:])
+#     return result
+# arr = [38, 27, 43, 3, 9, 82, 10, ]
+# sorted_arr = merge_sort(arr)
+# print(sorted_arr)
+
+# def quick_sort(arr, low, high):
+#     if low < high:
+#         pi = partition(arr, low, high)
+#         quick_sort(arr, low, pi - 1)
+#         quick_sort(arr, pi + 1, high)
+
+# def partition(arr, low, high):
+#     i = low - 1
+#     pivot = arr[high]
+#     for j in range(low, high):
+#         if arr[j] < pivot:
+#             i += 1
+#             arr[i], arr[j] = arr[j], arr[i]
+#     arr[i + 1], arr[high] = arr[high], arr[i + 1]
+#     return i + 1
+
+# arr = [38, 27, 43, 3, 9, 82, 10]
+# quick_sort(arr, 0, len(arr) - 1)    
+# print("mang ban dau: ", arr )
+# print("mang sau khi sap xep: ", arr)
+def activity_selection(activities):
+    """activities: list of tuples (start, finish)
+    return: list of selected activities"""
+    activities.sort(key=lambda x: x[1])
+    selected = [activities[0]]
+    last_finish = activities[0][1]
+    for i in range(1, len(activities)):
+        if activities[i][0] >= last_finish:
+            selected.append(activities[i])
+            last_finish = activities[i][1]
+    return selected
+
+activities = [(1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11)]
+result = activity_selection(activities)
+print(result)+
