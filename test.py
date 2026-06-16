@@ -118,3 +118,72 @@
 # activities = [(1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11)]
 # result = activity_selection(activities)
 # print(result)+
+def has_cycle_directed(graph):
+    # Bước 1: Khởi tạo tất cả các đỉnh với màu WHITE (Chưa thăm)
+    color = {}
+    for vertex in graph:
+        color[vertex] = 'WHITE'
+
+    # Bước 3: Định nghĩa hàm đệ quy DFS
+    def dfs(vertex):
+        # a. Đánh dấu đỉnh hiện tại là GRAY (Đang thăm)
+        color[vertex] = 'GRAY'
+        
+        # b. Duyệt qua từng đỉnh kề (neighbor) của đỉnh hiện tại
+        # Dùng graph.get(vertex, []) để tránh lỗi nếu đỉnh không có đỉnh kề nào
+        for neighbor in graph.get(vertex, []):
+            
+            # Nếu đỉnh kề đang màu GRAY -> Đã quay lại đường cũ -> CÓ CHU TRÌNH
+            if color.get(neighbor) == 'GRAY':
+                return True
+                
+            # Nếu đỉnh kề màu WHITE -> Chưa thăm -> Tiếp tục đi sâu (đệ quy)
+            elif color.get(neighbor) == 'WHITE':
+                # Nếu nhánh đệ quy này tìm thấy chu trình, báo True ngay lập tức
+                if dfs(neighbor):
+                    return True
+                    
+        # c. Sau khi duyệt xong tất cả các kề mà không có chu trình
+        # Đánh dấu đỉnh là BLACK (Đã thăm xong toàn bộ nhánh)
+        color[vertex] = 'BLACK'
+        
+        # d. Nhánh này an toàn, không có chu trình
+        return False
+
+    # Bước 2: Duyệt qua từng đỉnh của đồ thị để đảm bảo không bỏ sót đồ thị không liên thông
+    for vertex in graph:
+        if color[vertex] == 'WHITE':
+            # Chạy DFS từ đỉnh này, nếu phát hiện chu trình thì dừng và báo True
+            if dfs(vertex):
+                return True
+
+    # Bước 4: Duyệt hết tất cả các đỉnh mà không thấy chu trình
+    return False
+
+
+# ==========================================
+# VÍ DỤ CHẠY THỬ (TEST CASES)
+# ==========================================
+
+if __name__ == "__main__":
+    # Đồ thị 1: KHÔNG có chu trình (A -> B -> C, A -> C)
+    graph_no_cycle = {
+        'A': ['B', 'C'],
+        'B': ['C'],
+        'C': []
+    }
+    
+    # Đồ thị 2: CÓ chu trình (A -> B -> C -> A)
+    graph_with_cycle = {
+        'A': ['B'],
+        'B': ['C'],
+        'C': ['A'] 
+    }
+
+    print("Kiểm tra đồ thị 1 (Không chu trình):", has_cycle_directed(graph_no_cycle)) 
+    # Kết quả mong đợi: False
+
+    print("Kiểm tra đồ thị 2 (Có chu trình):", has_cycle_directed(graph_with_cycle)) 
+    # Kết quả mong đợi: True
+
+    def
