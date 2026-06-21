@@ -68,11 +68,11 @@ def shortest_route(graph, source, target):
 def demo_routing_shortest_path():
     print("\n--- DEMO 1.1: TÌM TUYẾN GIAO HÀNG NGẮN NHẤT (DIJKSTRA) ---")
     edges = [
-        ("WH1", "WH2", 8),
+        ("WH1", "WH2", 13),
         ("WH1", "HN", 13),
         ("HN", "DN", 15),
-        ("WH2", "DN", 8),
-        ("WH2", "HCM", 19),
+        ("WH2", "DN", 23),
+        ("WH2", "HCM", 22),
         ("DN", "HCM", 8),
         ("DN", "WH3", 12),
         ("HCM", "WH3", 4),
